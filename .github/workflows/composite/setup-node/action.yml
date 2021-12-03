@@ -13,7 +13,6 @@ runs:
         echo ::set-output name=npm-version::$(jq -r .engines.npm ./package.json)
 
     - uses: actions/setup-node@v2
-      shell: bash
       with:
         node-version: ${{steps.get-versions.outputs.node-version}}
 
