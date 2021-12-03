@@ -19,3 +19,8 @@ jobs:
       - run: npm install -g npm@$NPM_VERSION
         env:
           NPM_VERSION: ${{steps.get-versions.outputs.npm-version}}
+
+      - name: verify
+        run: |
+          npm -v
+          node -v
