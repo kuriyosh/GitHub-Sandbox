@@ -7,16 +7,20 @@ runs:
   using: "composite"
   steps:
     - id: get-versions
+      shell: bash
       run: |
         echo ::set-output name=node-version::$(curl https://semver.io/node/resolve/$(jq -r .engines.node ./package.json))
         echo ::set-output name=npm-version::$(jq -r .engines.npm ./package.json)
 
     - uses: actions/setup-node@v2
+      shell: bash
       with:
         node-version: ${{steps.get-versions.outputs.node-version}}
 
     - run: npm install -g npm@$NPM_VERSION
+      shell: bash
       env:
         NPM_VERSION: ${{steps.get-versions.outputs.npm-version}}
 
     - run: npm ci
+      shell: bash
