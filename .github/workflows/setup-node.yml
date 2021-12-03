@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - id: setup-node
-        use: ./.github/workflows/composite/setup-node
+        uses: ./.github/workflows/composite/setup-node
 
       - name: verify
         run: |
