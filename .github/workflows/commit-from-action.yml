@@ -1,0 +1,25 @@
+name: commit from GitHub actions
+
+on: push
+
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'test'
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: tj-actions/changed-files@v17.3
+        id: check_changed_file
+        with:
+          files: |
+            doc/**/*.txt
+      - run: touch ./$(echo $RANDOM).txt
+        if: steps.check_changed_file.outputs.any_changed == 'true'
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        if: steps.check_changed_file.outputs.any_changed == 'true'
+        with:
+          commit_message: hogehoge
